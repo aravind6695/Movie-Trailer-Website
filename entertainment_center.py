@@ -1,21 +1,48 @@
 from media import Movie
 import fresh_tomatoes
+import urllib
+import json
 
-# Create individual Movie objects
-toy_story = Movie("Toy Story",
-                        81,
-                        "A story of a boy and his toys that come to life",
-                        "https://upload.wikimedia.org/wikipedia/en/1/13/Toy_Story.jpg",
-                        "https://www.youtube.com/watch?v=tN1A2mVnrOM")
 
-avatar = Movie("Avatar",
-                    162,
-                     "A marine on an alien planet",
-                     "https://upload.wikimedia.org/wikipedia/en/b/b0/Avatar-Teaser-Poster.jpg",
-                     "https://www.youtube.com/watch?v=uZNHIU3uHT4")
+def get_movie(tmdb_id):
+    # Retrieve movie information
+    url = "https://api.themoviedb.org/3/movie/tmdb_id?api_key=a67cb6ea86667935513fc0b0e51f0d1e"  # NOQA
+    url = url.replace("tmdb_id", tmdb_id)
+    movie = json.load(urllib.urlopen(url))
+    title = movie['original_title']
+    duration = movie['runtime']
+    overview = movie['overview']
+    poster_image_url = "http://image.tmdb.org/t/p/w1920" + movie['poster_path']
+
+    # Retrieve YouTube trailer URL
+    url = "https://api.themoviedb.org/3/movie/tmdb_id/videos?api_key=a67cb6ea86667935513fc0b0e51f0d1e"  # NOQA
+    url = url.replace("tmdb_id", tmdb_id)
+    movie = json.load(urllib.urlopen(url))
+    trailer_youtube_url = ("https://www.youtube.com/watch?v="
+                            + movie['results'][0]['key'])
+
+    # Return a movie object for the given movie
+    return Movie(title, duration, overview, poster_image_url,
+                    trailer_youtube_url)
+
+
+# Create Movie objects using the get_movie() function
+the_dark_knight = get_movie("155")
+the_godfather = get_movie("238")
+the_shawshank_redemption = get_movie("278")
+interstellar = get_movie("157336")
+inception = get_movie("27205")
+dunkirk = get_movie("374720")
 
 # Store Movie objects in a list
-movies = [toy_story, avatar]
+movies = [
+        the_dark_knight,
+        the_godfather,
+        the_shawshank_redemption,
+        interstellar,
+        inception,
+        dunkirk,
+        ]
 
-# Passing movies list to the open_movies_page function to render webpage
+# Passing movies list to the open_movies_page() function to render webpage
 fresh_tomatoes.open_movies_page(movies)
