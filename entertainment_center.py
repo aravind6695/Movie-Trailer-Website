@@ -18,12 +18,12 @@ def get_movie(tmdb_id):
     url = "https://api.themoviedb.org/3/movie/tmdb_id/videos?api_key=a67cb6ea86667935513fc0b0e51f0d1e"  # NOQA
     url = url.replace("tmdb_id", tmdb_id)
     movie = json.load(urllib.urlopen(url))
-    trailer_youtube_url = ("https://www.youtube.com/watch?v="
-                            + movie['results'][0]['key'])
+    trailer_youtube_url = ("https://www.youtube.com/watch?v=" +
+                           movie['results'][0]['key'])
 
     # Return a movie object for the given movie
     return Movie(title, duration, overview, poster_image_url,
-                    trailer_youtube_url)
+                 trailer_youtube_url)
 
 
 # Create Movie objects using the get_movie() function
@@ -36,13 +36,13 @@ dunkirk = get_movie("374720")
 
 # Store Movie objects in a list
 movies = [
-        the_dark_knight,
-        the_godfather,
-        the_shawshank_redemption,
-        interstellar,
-        inception,
-        dunkirk,
-        ]
+    the_dark_knight,
+    the_godfather,
+    the_shawshank_redemption,
+    interstellar,
+    inception,
+    dunkirk,
+]
 
 # Passing movies list to the open_movies_page() function to render webpage
 fresh_tomatoes.open_movies_page(movies)
