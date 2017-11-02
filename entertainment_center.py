@@ -5,9 +5,21 @@ import json
 
 
 def get_movie(tmdb_id):
+    """Returns a Movie object given the TMDb ID of a movie.
+
+    Args:
+        tmdb_id (str): The unique ID for a movie on the TMDb website.
+
+    Returns:
+        An object of class Movie.
+    """
+
+    # TMDb API key
+    api_key = "a67cb6ea86667935513fc0b0e51f0d1e"
+
     # Retrieve movie information
-    url = "https://api.themoviedb.org/3/movie/tmdb_id?api_key=a67cb6ea86667935513fc0b0e51f0d1e"  # NOQA
-    url = url.replace("tmdb_id", tmdb_id)
+    url = ("https://api.themoviedb.org/3/movie/" + tmdb_id +
+           "?api_key=" + api_key)
     movie = json.load(urllib.urlopen(url))
     title = movie['original_title']
     duration = movie['runtime']
@@ -15,8 +27,8 @@ def get_movie(tmdb_id):
     poster_image_url = "http://image.tmdb.org/t/p/w1920" + movie['poster_path']
 
     # Retrieve YouTube trailer URL
-    url = "https://api.themoviedb.org/3/movie/tmdb_id/videos?api_key=a67cb6ea86667935513fc0b0e51f0d1e"  # NOQA
-    url = url.replace("tmdb_id", tmdb_id)
+    url = ("https://api.themoviedb.org/3/movie/" + tmdb_id +
+           "/videos?api_key=" + api_key)
     movie = json.load(urllib.urlopen(url))
     trailer_youtube_url = ("https://www.youtube.com/watch?v=" +
                            movie['results'][0]['key'])
