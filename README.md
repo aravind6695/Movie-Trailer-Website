@@ -7,9 +7,9 @@ This project is part of the [Full Stack Web Developer Nanodegree](https://www.ud
 - Make sure you have **Python 2.x** installed in your machine.
 - Download and extract the zip file, or clone the repository using the command:
 ```
-git clone https://github.com/aravind6695/Movie-Trailer-Website.git
+git clone https://github.com/aravindadithya95/movie-trailer-website
 ```
-- Navigate into the directory using the `cd` command.
+- Navigate to the directory using the `cd` command.
 - Run the following command to generate the HTML code for the website:
 ```
 python entertainment_center.py
